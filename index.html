@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Barcelona FC Facts</title>
+  <style>
+    #fact {
+      margin-top: 20px;
+      font-size: 1.2em;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Barcelona FC Facts</h1>
+  <div id="fact"></div>
+  <button id="showFact">Show a Random Fact</button>
+  <script>
+    const facts = [
+      {
+        "fact": "Full name: Futbol Club Barcelona, often shortened to FC Barcelona or Barça.",
+        "description": "The official name of the football club."
+      },
+      {
+        "fact": "Founded: November 29, 1899, by a group of Swiss, English, and Catalan footballers.",
+        "description": "The date and origin of the club's establishment."
+      },
+      {
+        "fact": "Home stadium: Camp Nou, one of the largest stadiums in the world with a capacity of over 99,000.",
+        "description": "Information about Barcelona's stadium, known for its size and capacity."
+      },
+      {
+        "fact": "La Liga dominance: Barcelona has won the most La Liga titles (27) and is one of the most successful clubs in Spanish football history.",
+        "description": "Highlights Barcelona's success in the Spanish domestic league."
+      },
+      {
+        "fact": "European success: Barcelona has won the UEFA Champions League five times, the UEFA Cup Winners' Cup four times, and the UEFA Europa League once.",
+        "description": "Details Barcelona's achievements in major European club competitions."
+      },
+      {
+        "fact": "Famous players: The club has been home to legendary players like Lionel Messi, Johan Cruyff, Ronaldinho, and Xavi Hernandez.",
+        "description": "Mentions some of the iconic players who have represented Barcelona."
+      },
+      {
+        "fact": "Catalan identity: FC Barcelona is closely associated with Catalan culture and is seen as a symbol of Catalan nationalism.",
+        "description": "Explains the connection between the club and Catalan identity."
+      },
+      {
+        "fact": "\"Més que un club\" (\"More than a club\"): A famous motto that emphasizes the club's social and cultural significance beyond just being a football team.",
+        "description": "Describes the club's motto, which reflects its broader cultural impact."
+      },
+      {
+        "fact": "La Masia: Barcelona's youth academy, renowned for producing world-class players like Messi, Xavi, and Iniesta.",
+        "description": "Information about La Masia, Barcelona's famous youth academy."
+      },
+      {
+        "fact": "Rivalries: Barcelona has intense rivalries with Real Madrid (El Clásico), Espanyol, and other clubs.",
+        "description": "Mentions the club's key rivalries in Spanish football."
+      }
+    ];
+
+    const factElement = document.getElementById('fact');
+    const showFactButton = document.getElementById('showFact');
+
+    showFactButton.addEventListener('click', () => {
+      const randomIndex = Math.floor(Math.random() * facts.length);
+      const randomFact = facts[randomIndex];
+      factElement.textContent = randomFact.fact;
+    });
+  </script>
+</body>
+</html>
