@@ -1,73 +1,151 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Barcelona FC Facts</title>
-  <style>
-    #fact {
-      margin-top: 20px;
-      font-size: 1.2em;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FC Barcelona Fan Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: linear-gradient(45deg, #004D98, #A50044);
+            background-attachment: fixed;
+            background-size: cover;
+            color: white;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .dark-mode {
+            background: linear-gradient(45deg, #1a1a1a, #333333);
+        }
+        button {
+            padding: 10px;
+            margin: 10px;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        button:hover {
+            background: rgba(255, 255, 255, 1);
+        }
+        img {
+            width: 300px;
+            border-radius: 10px;
+            margin: 10px;
+            border: 2px solid white;
+        }
+        .nav-container {
+            position: relative;
+            display: inline-block;
+            margin: 20px 0;
+        }
+        .nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: linear-gradient(45deg, #004D98, #A50044);
+            border: none;
+            cursor: pointer;
+            font-size: 32px;
+            font-weight: bold;
+            color: white;
+            padding: 10px;
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+        }
+        .nav-arrow:hover {
+            background: linear-gradient(45deg, #A50044, #004D98);
+            transform: translateY(-50%) scale(1.1);
+        }
+        .nav-arrow.left {
+            left: -40px;
+        }
+        .nav-arrow.right {
+            right: -40px;
+        }
+    </style>
 </head>
 <body>
-  <h1>Barcelona FC Facts</h1>
-  <div id="fact"></div>
-  <button id="showFact">Show a Random Fact</button>
-  <script>
-    const facts = [
-      {
-        "fact": "Full name: Futbol Club Barcelona, often shortened to FC Barcelona or Barça.",
-        "description": "The official name of the football club."
-      },
-      {
-        "fact": "Founded: November 29, 1899, by a group of Swiss, English, and Catalan footballers.",
-        "description": "The date and origin of the club's establishment."
-      },
-      {
-        "fact": "Home stadium: Camp Nou, one of the largest stadiums in the world with a capacity of over 99,000.",
-        "description": "Information about Barcelona's stadium, known for its size and capacity."
-      },
-      {
-        "fact": "La Liga dominance: Barcelona has won the most La Liga titles (27) and is one of the most successful clubs in Spanish football history.",
-        "description": "Highlights Barcelona's success in the Spanish domestic league."
-      },
-      {
-        "fact": "European success: Barcelona has won the UEFA Champions League five times, the UEFA Cup Winners' Cup four times, and the UEFA Europa League once.",
-        "description": "Details Barcelona's achievements in major European club competitions."
-      },
-      {
-        "fact": "Famous players: The club has been home to legendary players like Lionel Messi, Johan Cruyff, Ronaldinho, and Xavi Hernandez.",
-        "description": "Mentions some of the iconic players who have represented Barcelona."
-      },
-      {
-        "fact": "Catalan identity: FC Barcelona is closely associated with Catalan culture and is seen as a symbol of Catalan nationalism.",
-        "description": "Explains the connection between the club and Catalan identity."
-      },
-      {
-        "fact": "\"Més que un club\" (\"More than a club\"): A famous motto that emphasizes the club's social and cultural significance beyond just being a football team.",
-        "description": "Describes the club's motto, which reflects its broader cultural impact."
-      },
-      {
-        "fact": "La Masia: Barcelona's youth academy, renowned for producing world-class players like Messi, Xavi, and Iniesta.",
-        "description": "Information about La Masia, Barcelona's famous youth academy."
-      },
-      {
-        "fact": "Rivalries: Barcelona has intense rivalries with Real Madrid (El Clásico), Espanyol, and other clubs.",
-        "description": "Mentions the club's key rivalries in Spanish football."
-      }
-    ];
+    <h1>Welcome to the FC Barcelona Fan Page</h1>
+    <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
+    <button onclick="playAnthem()">Play Club Anthem</button>
+    <button onclick="showRandomFact()">Show Random Fact</button>
+    <br>
+    <div class="nav-container">
+        <button class="nav-arrow left" onclick="showPreviousFact()">&larr;</button>
+        <img id="barcaImage" src="https://upload.wikimedia.org/wikipedia/en/thumb/4/47/FC_Barcelona_%28crest%29.svg/1200px-FC_Barcelona_%28crest%29.svg.png" alt="FC Barcelona Logo">
+        <button class="nav-arrow right" onclick="showNextFact()">&rarr;</button>
+    </div>
+    <p id="fact"></p>
+    <audio id="anthem" controls src="audio/Official-Anthem.wav"></audio>
+    <script>
+        function toggleDarkMode() {
+            const body = document.body;
+            body.classList.toggle("dark-mode");
+            localStorage.setItem('darkMode', body.classList.contains("dark-mode"));
+        }
 
-    const factElement = document.getElementById('fact');
-    const showFactButton = document.getElementById('showFact');
+        document.addEventListener('DOMContentLoaded', () => {
+            const isDarkMode = localStorage.getItem('darkMode') === 'true';
+            document.body.classList.toggle("dark-mode", isDarkMode);
+        });
 
-    showFactButton.addEventListener('click', () => {
-      const randomIndex = Math.floor(Math.random() * facts.length);
-      const randomFact = facts[randomIndex];
-      factElement.textContent = randomFact.fact;
-    });
-  </script>
+        function playAnthem() {
+            let anthem = document.getElementById("anthem");
+            anthem.play();
+        }
+
+        let currentIndex = 0;
+        const facts = [
+            { text: "FC Barcelona was founded in 1899.", audio: "audio/Forca-Barcelona-Ale.mp3" },
+            { text: "Camp Nou is the largest stadium in Europe.", audio: "audio/Barcelona-Ale-Ale-Ale.mp3" },
+            { text: "Lionel Messi is Barcelona's all-time top scorer.", audio: "audio/Barca-Barca-Barca.mp3" },
+            { text: "Barcelona has won multiple Champions League titles.", audio: "audio/Acapella.m4a" },
+            { text: "Their famous motto is 'Més que un club' (More than a club).", audio: "audio/Official-Anthem.wav" },
+            { text: "FC Barcelona is the only club to win two trebles (2008-09 & 2014-15).", audio: "audio/Official-Anthem.wav" },
+            { text: "La Masia has produced legends like Messi, Xavi, and Iniesta.", audio: "audio/Barca-Barca-Barca.mp3" },
+            { text: "Barcelona made history with a 6-1 comeback vs PSG in 2017.", audio: "audio/Forca-Barcelona-Ale.mp3" },
+            { text: "In 2009, Barça won six trophies in a single year.", audio: "audio/Barcelona-Ale-Ale-Ale.mp3" },
+            { text: "Messi scored 91 goals in 2012, setting a world record.", audio: "audio/Acapella.m4a" },
+            { text: "El Clásico between Barça and Madrid is one of the most-watched matches in football.", audio: "audio/Official-Anthem.wav" },
+            { text: "Ronaldinho received a standing ovation at the Bernabéu after his 2005 performance.", audio: "audio/Barca-Barca-Barca.mp3" },
+            { text: "Barcelona was the first team to use UNICEF as a shirt sponsor.", audio: "audio/Forca-Barcelona-Ale.mp3" },
+            { text: "Johan Cruyff revolutionized Barça’s playing style with 'Total Football'.", audio: "audio/Barcelona-Ale-Ale-Ale.mp3" }
+        ];
+
+        function showFact(index) {
+            currentIndex = index;
+            const fact = facts[currentIndex];
+            document.getElementById("fact").innerText = fact.text;
+            
+            let audio = document.getElementById("anthem");
+            audio.pause();
+            audio.currentTime = 0;
+            audio.src = fact.audio;
+            audio.play();
+        }
+
+        function showRandomFact() {
+            const randomIndex = Math.floor(Math.random() * facts.length);
+            showFact(randomIndex);
+        }
+
+        function showNextFact() {
+            currentIndex = (currentIndex + 1) % facts.length;
+            showFact(currentIndex);
+        }
+
+        function showPreviousFact() {
+            currentIndex = (currentIndex - 1 + facts.length) % facts.length;
+            showFact(currentIndex);
+        }
+
+        // Initialize with first fact
+        showFact(0);
+    </script>
 </body>
 </html>
